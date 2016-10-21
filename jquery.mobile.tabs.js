@@ -50,7 +50,14 @@ $.widget( "mobile.tabs", $.mobile.widget, {
 		// Now show the one that's active
 		if( $navbtns.filter('.ui-btn-active').length == 0 )
 			$navbtns.first().addClass('ui-btn-active');
-		$content.children('#' + $navbtns.eq($this.currentTab()).attr('href')).addClass('ui-tabs-content-active');
+		
+		// href contains content id 
+		var targetContentId = $tabs.eq($this.currentTab()).attr('href');
+		// must check or can break if # is already there
+            	if (targetContentId[0] != '#')
+                    targetContentId = '#' + targetContentId;
+            	$tabContents.filter(targetContentId).addClass('ui-tabs-content-active');
+		//$content.children('#' + $navbtns.eq($this.currentTab()).attr('href')).addClass('ui-tabs-content-active');
 
 		$navbtns.bind('click', function(event) {
 			navButtonClick.call(this, event);
